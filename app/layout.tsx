@@ -1,6 +1,10 @@
 import "./globals.css"
 import { Inter } from "next/font/google"
+import { getAuthSession } from "@/lib/nextauth"
+import { Toaster } from "@/components/ui/toaster"
+
 import Navigation from "@/components/auth/Navigation"
+import AuthContext from "@/app/context/AuthContext"
 const inter = Inter({ subsets: ["latin"] })
 
 import type { Metadata } from "next"
@@ -12,11 +16,16 @@ export const metadata: Metadata = {
 
 // レイアウト
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // 認証情報取得
+  const session = await getAuthSession()
+
   return (
     <html lang="ja">
       <body className={inter.className}>
+       <AuthContext>
         <div className="flex min-h-screen flex-col">
-          <Navigation />
+          <Navigation session={session} />
+          <Toaster />
 
           <main className="container mx-auto max-w-screen-md flex-1 px-2">
             {children}
@@ -29,6 +38,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
             </div>
           </footer>
         </div>
+       </AuthContext>
       </body>
     </html>
   )
