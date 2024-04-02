@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input"
 import { useMutation } from "@tanstack/react-query"
 import { useToast } from "@/components/ui/use-toast"
 import axios from "axios"
-import QuestionLoading from "../question/QUestionLoading"
+import QuestionLoading from "../question/QuestionLoading"
 // 難易度
 const LEVELS = ["Easy", "Normal", "Hard"] as const
 // 言語
